@@ -7,20 +7,26 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.prc_nasaapp.data.model.Apod
+import com.example.prc_nasaapp.data.network.NasaApiService
 import com.example.prc_nasaapp.data.network.RetrofitInstance
-import com.example.prc_nasaapp.ui.utils.TAGS.MainScreenVM
+import com.example.prc_nasaapp.ui.utils.UITAGS.MainScreenVM
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 
+/** Estados de la UI
+ * @sample com.example.prc_nasaapp.ui.screens.mainScreen.MainScreenUIState*/
 sealed interface MainScreenUIState {
     data class Success(val data: Apod) : MainScreenUIState
     object Loading : MainScreenUIState
-    object Error : MainScreenUIState
+    data class Error(val message: String) : MainScreenUIState
 }
 
-class MainScreenViewModel : ViewModel() {
+//TODO continuar viendo tutorial de inyeccion de dependencia: https://www.youtube.com/watch?v=PBYnVFT2CI8&t=331s
+class MainScreenViewModel(
+    private val api: NasaApiService
+) : ViewModel() {
 
     var uiState: MainScreenUIState by mutableStateOf(MainScreenUIState.Loading)
     val retrofit = RetrofitInstance.retrofitBuilder
@@ -36,13 +42,13 @@ class MainScreenViewModel : ViewModel() {
                 delay(400)
                 uiState = MainScreenUIState.Success(data)
             } catch (e: Exception) {
-                uiState = MainScreenUIState.Error
+                uiState = MainScreenUIState.Error(e.message.toString())
                 Log.e(MainScreenVM, e.message.toString())
             } catch (e: HttpException) {
-                uiState = MainScreenUIState.Error
+                uiState = MainScreenUIState.Error(e.message.toString())
                 Log.e(MainScreenVM, e.message.toString())
             } catch (e: IOException) {
-                uiState = MainScreenUIState.Error
+                uiState = MainScreenUIState.Error(e.message.toString())
                 Log.e(MainScreenVM, e.message.toString())
             }
         }

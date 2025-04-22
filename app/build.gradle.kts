@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -76,6 +78,9 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
-    // Koin for Android
-    implementation(libs.koin.android)
+    //Dagger Hilt 2
+    implementation(libs.hilt.android.v2562)
+    ksp(libs.hilt.android.compiler)
+
+
 }

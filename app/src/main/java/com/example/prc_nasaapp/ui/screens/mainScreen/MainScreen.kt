@@ -9,22 +9,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.example.prc_nasaapp.data.model.Apod
 import com.example.prc_nasaapp.ui.components.ErrorScreen
 import com.example.prc_nasaapp.ui.components.LoadingScreen
@@ -47,7 +46,7 @@ fun MainApp(
         }
 
         is MainScreenUIState.Error -> {
-            ErrorScreen(Modifier.fillMaxSize())
+            ErrorScreen(Modifier.fillMaxSize(), message = uiState.message)
         }
     }
 
@@ -78,25 +77,30 @@ private fun ApodCard(
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic
             )
-            // Imagen
+            //Imagen
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardDefaults.shape,
                 elevation = CardDefaults.cardElevation()
             ) {
-                AsyncImage(
-                    model = fetch.hdurl,
-                    contentDescription = fetch.service_version,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp)
-                        .clip(RoundedCornerShape(12.dp))
+                SubcomposeAsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(fetch.hdurl)
+                        .crossfade(true) // Efecto de transición al cargar
+                        .build(),
+                    loading = {
+                        LoadingScreen(Modifier
+                            .fillMaxWidth()
+                            .height(300.dp))
+                    },
+                    contentDescription = "Imagen del dia.",
                 )
             }
+            //Fecha
             Row(Modifier.padding(8.dp)) {
                 Text("Fecha: ${fetch.date}")
             }
+            //Explicacion
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
@@ -104,13 +108,4 @@ private fun ApodCard(
             }
         }
     }
-}
-
-@Preview(widthDp = 400, heightDp = 400)
-@Composable
-fun ApodCardPreview(modifier: Modifier = Modifier) {
-    ApodCard(
-        modifier = TODO(),
-        fetch = TODO()
-    )
 }

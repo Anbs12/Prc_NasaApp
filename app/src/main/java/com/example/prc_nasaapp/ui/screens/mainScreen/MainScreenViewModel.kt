@@ -23,7 +23,6 @@ sealed interface MainScreenUIState {
     data class Error(val message: String) : MainScreenUIState
 }
 
-//TODO continuar viendo tutorial de inyeccion de dependencia: https://www.youtube.com/watch?v=PBYnVFT2CI8&t=331s
 class MainScreenViewModel(
     private val api: NasaApiService
 ) : ViewModel() {

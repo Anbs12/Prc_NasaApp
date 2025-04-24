@@ -1,4 +1,4 @@
-package com.example.prc_nasaapp.ui.screens.mainScreen
+package com.example.prc_nasaapp.ui.screens.ApodScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,28 +28,25 @@ import com.example.prc_nasaapp.data.model.Apod
 import com.example.prc_nasaapp.ui.components.ErrorScreen
 import com.example.prc_nasaapp.ui.components.LoadingScreen
 
+/**Pantalla con la Astronomy Picture of the Day*/
 @Composable
-fun MainApp(
-    modifier: Modifier = Modifier,
-    viewModel: MainScreenViewModel = viewModel()
+fun ApodScreenMain(
+    viewModel: ApodScreenViewModel = viewModel()
 ) {
-
     val uiState = viewModel.uiState
-
     when (uiState) {
-        is MainScreenUIState.Success -> {
+        is ApodScreenUIState.Success -> {
             ApodCard(modifier = Modifier.fillMaxSize(), fetch = uiState.data)
         }
 
-        is MainScreenUIState.Loading -> {
+        is ApodScreenUIState.Loading -> {
             LoadingScreen(Modifier.fillMaxSize())
         }
 
-        is MainScreenUIState.Error -> {
+        is ApodScreenUIState.Error -> {
             ErrorScreen(Modifier.fillMaxSize(), message = uiState.message)
         }
     }
-
 }
 
 @Composable
@@ -89,9 +86,11 @@ private fun ApodCard(
                         .crossfade(true) // Efecto de transición al cargar
                         .build(),
                     loading = {
-                        LoadingScreen(Modifier
-                            .fillMaxWidth()
-                            .height(300.dp))
+                        LoadingScreen(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(300.dp)
+                        )
                     },
                     contentDescription = "Imagen del dia.",
                 )

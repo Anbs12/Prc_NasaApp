@@ -69,6 +69,11 @@ dependencies {
     //Coroutines.
     implementation(libs.kotlinx.coroutines.android)
 
+    //Para navegación entre pantallas con Jetpack Compose.
+    implementation(libs.androidx.navigation.compose)
+    //Para navegación con Hilt y viewModel?
+    implementation(libs.androidx.hilt.navigation.compose)
+
     //Retrofit.
     implementation(libs.retrofit)
     //Convertidor JSON Google
@@ -81,6 +86,7 @@ dependencies {
     //Dagger Hilt 2
     implementation(libs.hilt.android.v2562)
     ksp(libs.hilt.android.compiler)
+    testImplementation(kotlin("test"))
 
 
 }

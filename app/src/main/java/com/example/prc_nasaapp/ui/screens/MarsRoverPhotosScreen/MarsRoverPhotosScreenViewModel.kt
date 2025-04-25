@@ -7,7 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.prc_nasaapp.data.model.MarsRoverPhotos
-import com.example.prc_nasaapp.data.repository.NasaRepository
+import com.example.prc_nasaapp.data.repository.MarsPhotoRepository
+import com.example.prc_nasaapp.di.HiltMarsPhotos
 import com.example.prc_nasaapp.ui.utils.UITAGS.MarsRoverPhotosScreenVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -24,7 +25,7 @@ sealed interface MarsRoverPhotosUIState {
 
 @HiltViewModel
 class MarsRoverPhotosScreenViewModel @Inject constructor(
-    private val repository: NasaRepository
+    @HiltMarsPhotos private val repository: MarsPhotoRepository
 ) : ViewModel() {
 
     var uiState: MarsRoverPhotosUIState by mutableStateOf(MarsRoverPhotosUIState.Loading)
@@ -36,9 +37,11 @@ class MarsRoverPhotosScreenViewModel @Inject constructor(
     private fun getPhotos() {
         viewModelScope.launch {
             try {
-                val photos = repository.getMarsRoverPhotos()
+                val photos = repository.getMarsPhotos()
+                if (photos.isSuccessful) {
+                    uiState = MarsRoverPhotosUIState.Success(photos.body()!!)
+                }
                 delay(1000)
-                uiState = MarsRoverPhotosUIState.Success(photos)
             } catch (e: Exception) {
                 Log.e(MarsRoverPhotosScreenVM, e.message.toString())
                 uiState = MarsRoverPhotosUIState.Error(e.message.toString())

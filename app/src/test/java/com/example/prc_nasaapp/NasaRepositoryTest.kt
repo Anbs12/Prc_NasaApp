@@ -3,7 +3,6 @@ package com.example.prc_nasaapp
 import com.example.prc_nasaapp.data.network.MarsPhotoApiService
 import com.example.prc_nasaapp.data.network.NasaApiService
 import com.example.prc_nasaapp.data.utils.DATATAGS.NASA_BASE_URL
-import io.mockk.coEvery
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient

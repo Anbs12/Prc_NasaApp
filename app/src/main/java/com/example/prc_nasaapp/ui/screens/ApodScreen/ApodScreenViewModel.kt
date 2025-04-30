@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.prc_nasaapp.data.model.Apod
 import com.example.prc_nasaapp.data.repository.NasaRepository
+import com.example.prc_nasaapp.di.HiltApod
 import com.example.prc_nasaapp.ui.utils.UITAGS.ApodScreenVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -31,7 +32,7 @@ sealed interface ApodScreenUIState {
  * */
 @HiltViewModel
 class ApodScreenViewModel @Inject constructor(
-    private val repository: NasaRepository
+    @HiltApod private val repository: NasaRepository
 ) : ViewModel() {
 
     /**Gestiona el estado de la UI.*/
@@ -45,8 +46,10 @@ class ApodScreenViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val data = repository.getApodInfo()
+                if (data.isSuccessful) {
+                    uiState = ApodScreenUIState.Success(data.body()!!)
+                }
                 delay(400)
-                uiState = ApodScreenUIState.Success(data)
             } catch (e: Exception) {
                 uiState = ApodScreenUIState.Error(e.message.toString())
                 Log.e(ApodScreenVM, e.message.toString())

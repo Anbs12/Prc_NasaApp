@@ -60,6 +60,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Dependencias tests instaladas manualmente.
+    //Mockito
+    testImplementation (libs.mockk)
+
     // Para usar ViewModel en Kotlin Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
@@ -71,7 +75,7 @@ dependencies {
 
     //Para navegación entre pantallas con Jetpack Compose.
     implementation(libs.androidx.navigation.compose)
-    //Para navegación con Hilt y viewModel?
+    //Para navegación con Hilt y viewModel
     implementation(libs.androidx.hilt.navigation.compose)
 
     //Retrofit.

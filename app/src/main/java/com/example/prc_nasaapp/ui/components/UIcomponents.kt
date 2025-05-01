@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import java.util.Locale
 
 @Composable
 fun LoadingScreen(
@@ -35,4 +36,12 @@ fun ErrorScreen(
     ) {
         Text(text = "Error: $message")
     }
+}
+
+/**Convierte la primera letra de una palabra en mayuscula.
+ *
+ * Utiliza "replaceFirstChar" para convertir primera letra en mayuscula en esta
+ * funcion de extension.*/
+fun String.capitalizeFirstCharacterString() = replaceFirstChar {
+    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
 }

@@ -8,9 +8,10 @@ import retrofit2.http.Query
 
 interface MarsPhotoApiService {
 //https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY
+//https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=DEMO_KEY
 
     /**Devuelve la coleccion de imagenes del Rover Curiosity*/
-    @GET("/mars-photos/api/v1/rovers/curiosity/photos")
+    @GET("/mars-photos/api/v1/rovers/curiosity/latest_photos")
     suspend fun getRoversPhotos(
         @Query("sol") sol: Int = 1000, // O Long, dependiendo de los valores posibles
         @Query("api_key") apiKey: String = NASAAPIKEY

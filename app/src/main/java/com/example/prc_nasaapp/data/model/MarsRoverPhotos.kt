@@ -1,9 +1,12 @@
 package com.example.prc_nasaapp.data.model
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Mars Rover Photos: Image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars
  * */
 data class MarsRoverPhotos(
+    @SerializedName(value = "latest_photos")
     val photos: List<Photo>
 )
 

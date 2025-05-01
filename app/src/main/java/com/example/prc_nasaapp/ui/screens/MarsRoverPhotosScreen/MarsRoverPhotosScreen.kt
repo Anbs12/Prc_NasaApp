@@ -28,6 +28,7 @@ import com.example.prc_nasaapp.data.model.Photo
 import com.example.prc_nasaapp.data.model.Rover
 import com.example.prc_nasaapp.ui.components.ErrorScreen
 import com.example.prc_nasaapp.ui.components.LoadingScreen
+import com.example.prc_nasaapp.ui.components.capitalizeFirstCharacterString
 
 
 /**Pantalla con lista de fotografias de Marte de los distintos Rovers.*/
@@ -55,7 +56,7 @@ fun MarsRoverPhotosScreen(
 }
 
 @Composable
-fun Lista(modifier: Modifier = Modifier, data: MarsRoverPhotos) {
+private fun Lista(modifier: Modifier = Modifier, data: MarsRoverPhotos) {
     LazyColumn(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -68,7 +69,7 @@ fun Lista(modifier: Modifier = Modifier, data: MarsRoverPhotos) {
 }
 
 @Composable
-fun PhotoCard(
+private fun PhotoCard(
     photo: Photo,
     modifier: Modifier = Modifier
 ) {
@@ -101,7 +102,7 @@ fun PhotoCard(
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "Rover: ${photo.rover.name} (${photo.rover.status.capitalize()})",
+                text = "Rover: ${photo.rover.name} (${photo.rover.status.capitalizeFirstCharacterString()})",
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
@@ -129,7 +130,7 @@ fun PhotoCard(
 }
 
 @Composable
-fun CameraInfo(
+private fun CameraInfo(
     camera: Camera,
     modifier: Modifier = Modifier
 ) {
@@ -142,14 +143,14 @@ fun CameraInfo(
 }
 
 @Composable
-fun RoverInfo(
+private fun RoverInfo(
     rover: Rover,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(8.dp)) {
         Text(text = "Rover: ${rover.name}", style = MaterialTheme.typography.titleSmall)
         Text(
-            text = "Estado: ${rover.status.capitalize()}",
+            text = "Estado: ${rover.status.capitalizeFirstCharacterString()}",
             style = MaterialTheme.typography.bodySmall
         )
         Text(text = "Lanzamiento: ${rover.launch_date}", style = MaterialTheme.typography.bodySmall)

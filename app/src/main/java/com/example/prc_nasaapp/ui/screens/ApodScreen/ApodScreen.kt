@@ -64,7 +64,8 @@ private fun ApodCard(
         Column(
             modifier = Modifier
                 .padding(10.dp)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceAround
         ) {
             //Titulo
@@ -99,12 +100,7 @@ private fun ApodCard(
             Row(Modifier.padding(8.dp)) {
                 Text("Fecha: ${fetch.date}")
             }
-            //Explicacion
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState())
-            ) {
-                Text(text = fetch.explanation)
-            }
+            Text(text = fetch.explanation)
         }
     }
 }

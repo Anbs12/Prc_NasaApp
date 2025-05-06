@@ -19,16 +19,26 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags += ""
+            }
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            //plique técnicas de minimización, ofuscación y optimización a tu aplicación.
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = false
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -39,6 +49,12 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 }
 
@@ -62,7 +78,7 @@ dependencies {
 
     //Dependencias tests instaladas manualmente.
     //Mockito
-    testImplementation (libs.mockk)
+    testImplementation(libs.mockk)
 
     // Para usar ViewModel en Kotlin Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)

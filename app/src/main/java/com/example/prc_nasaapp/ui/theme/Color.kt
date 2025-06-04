@@ -2,10 +2,12 @@ package com.example.prc_nasaapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+//Light theme
+val VividSkyBlue = Color(0xFF48CAE4)
+val FrenchGray = Color(0xFFCED4DA)
+val blackCOlorColor = Color(0xFF000000)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+//Dark theme
+val MarianBlue = Color(0xFF023E8A)
+val SlateGray = Color(0xFF6C757D)
+val whiteColorColor = Color(0xFFFFFFFF)

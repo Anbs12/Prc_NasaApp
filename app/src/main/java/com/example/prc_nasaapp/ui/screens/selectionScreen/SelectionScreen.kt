@@ -58,13 +58,16 @@ fun SelectionScreenMain(
     }
 }
 
+/**Botones de seleccion de pantallas.
+ * @param text Texto del boton.
+ * @param onClick Accion al hacer click.
+ * @param cardColors Color de fondo del boton.*/
 @Composable
 private fun ButtonSelection(
     text: String = "",
     onClick: () -> Unit,
     cardColors: Color,
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,16 +97,4 @@ private fun ButtonSelection(
             )
         }
     }
-}
-
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Composable
-private fun SelectionScreenPreview() {
-    SelectionScreenMain(
-        onGoApodScreen = {},
-        onGoMarsRoverPhotosScreen = {}
-    )
 }
